@@ -4,9 +4,113 @@
   <meta charset="UTF-8">
   <title>🎉🥳🎂 Happy Birthday, Monalisa! 🎂🥳🎉</title>
   <link rel="stylesheet" href="./style.css">
+   <style>
+        /* Styles for background blur effect */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+         /* Popup container */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            z-index: 1;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+
+        /* Popup box */
+        .popup-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 320px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Message text */
+        .popup-box h2 {
+            margin: 0 0 15px;
+            font-size: 22px;
+            color: #444;
+        }
+
+        /* Button styles */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .yes-button {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .yes-button:hover {
+            background: #45a049;
+        }
+
+        .no-button {
+            background: #ff5c5c;
+            color: white;
+        }
+
+        .no-button:hover {
+            background: #e04747;
+        }
+
+        /* Show popup effect */
+        .popup-container.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-container.show .popup-box {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
 
 </head>
 <body>
+  <!-- Popup container -->
+    <div class="popup-container" id="popup">
+        <div class="popup-box">
+            <h2 id="popup-text">😢 Please আর রাগ করিস না!🥺🙏</h2>
+            <div class="button-container">
+                <button class="yes-button" onclick="respond('yes')">Yes 😊</button>
+                <button class="no-button" onclick="respond('no')">No 😠</button>
+            </div>
+        </div>
+    </div>
 <!-- partial:index.partial.html -->
 <div class="Container">
   <!-- last card -->
@@ -37,9 +141,6 @@
     <img class="Picture-img" src="img/img11.jpg" alt="" />
     <div class="Picture-note"><span>Some moment while Adventure 🎂💕</span></div>
 </div>
-
-
-
 <div class="Picture">
     <img class="Picture-img" src="./img/img13.jpg" alt="" />
     <div class="Picture-note"><span>Thinking my Happy moment 🎉💖</span></div>
@@ -60,7 +161,6 @@
   <img class="Picture-img" src="./img/img20.jpg" alt="" />
   <div class="Picture-note"><span>Me in Festival 🎈💖</span></div>
 </div>
-
 <div class="Picture">
     <img class="Picture-img" src="./img/img23.webp" alt="" />
     <div class="Picture-note"><span>Chill with Friends 💖🎂</span></div>
@@ -70,6 +170,45 @@
 
 </div>
 <!-- partial -->
+<script>
+        const messages = [
+            "Pretty please? 🥺🙏",
+            "Pleeeeeaseeee? 🥺🙏",
+            "Plz ক্ষমা করে দে? 🥹💖",
+            "আমরা কি বন্ধু হতে পারি? 🤗💕",
+            "Sooooorry রে! 😭🙏🥺",
+            "Sooooooooooorrrrrrry! 😭🙏🥺"
+        ];
+        var msg_id = 0;
+        function showPopup() {
+            document.getElementById("popup").classList.add("show");
+        }
+
+        function closePopup() {
+            document.getElementById("popup").classList.remove("show");
+        }
+
+        function respond(answer) {
+            let popup = document.getElementById("popup");
+            let popupText = document.getElementById("popup-text");
+
+            if (answer === "yes") {
+                popupText.innerHTML = "Thank you 😍💕";
+                setTimeout(() => {
+                    popup.classList.remove("show");
+                }, 1000);
+            } else {
+                idx = Math.floor(Math.random() * messages.length);
+                idx = msg_id == idx ? (idx + 1)%messages.length : idx;
+                let randomMessage = messages[msg_id];
+                msg_id = idx;
+                popupText.innerHTML = randomMessage;
+            }
+        }
+
+        setTimeout(showPopup, 1000);
+    </script>
+
   <script  src="./script.js"></script>
 
 </body>
